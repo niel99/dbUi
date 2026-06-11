@@ -93,14 +93,14 @@ export function ConnectionForm({
 
   return (
     <div className="flex-1 flex items-center justify-center p-8">
-      <div className="w-full max-w-lg bg-gray-900 rounded-lg border border-gray-800 p-6">
+      <div className="w-full max-w-lg bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6">
         <h2 className="text-xl font-semibold mb-6">
           {connection ? "Edit Connection" : "New Connection"}
         </h2>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm text-gray-400 mb-1">
+            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
               Connection Name
             </label>
             <input
@@ -109,13 +109,13 @@ export function ConnectionForm({
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, name: e.target.value }))
               }
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
               placeholder="My Database"
             />
           </div>
 
           <div>
-            <label className="block text-sm text-gray-400 mb-1">
+            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
               Database Type
             </label>
             <div className="grid grid-cols-4 gap-2">
@@ -126,7 +126,7 @@ export function ConnectionForm({
                   className={`px-3 py-2 rounded text-sm font-medium transition-colors ${
                     form.type === dbType.value
                       ? "bg-blue-600 text-white"
-                      : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                      : "bg-gray-100 text-gray-500 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
                   }`}
                 >
                   {dbType.label}
@@ -137,18 +137,18 @@ export function ConnectionForm({
 
           <div className="grid grid-cols-3 gap-3">
             <div className="col-span-2">
-              <label className="block text-sm text-gray-400 mb-1">Host</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Host</label>
               <input
                 type="text"
                 value={form.host}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, host: e.target.value }))
                 }
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">Port</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Port</label>
               <input
                 type="number"
                 value={form.port}
@@ -158,14 +158,14 @@ export function ConnectionForm({
                     port: parseInt(e.target.value) || 0,
                   }))
                 }
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-sm text-gray-400 mb-1">
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
                 Username
               </label>
               <input
@@ -174,11 +174,11 @@ export function ConnectionForm({
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, username: e.target.value }))
                 }
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-400 mb-1">
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
                 Password
               </label>
               <input
@@ -187,13 +187,13 @@ export function ConnectionForm({
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, password: e.target.value }))
                 }
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm text-gray-400 mb-1">
+            <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
               Database{form.type === "cassandra" || form.type === "scylladb"
                 ? " / Keyspace"
                 : ""}
@@ -204,7 +204,7 @@ export function ConnectionForm({
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, database: e.target.value }))
               }
-              className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+              className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
             />
           </div>
 
@@ -212,8 +212,8 @@ export function ConnectionForm({
             <div
               className={`px-3 py-2 rounded text-sm ${
                 testResult.success
-                  ? "bg-green-900/50 border border-green-800 text-green-300"
-                  : "bg-red-900/50 border border-red-800 text-red-300"
+                  ? "bg-green-100 dark:bg-green-900/50 border border-green-300 dark:border-green-800 text-green-700 dark:text-green-300"
+                  : "bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-800 text-red-700 dark:text-red-300"
               }`}
             >
               {testResult.success
@@ -223,7 +223,7 @@ export function ConnectionForm({
           )}
 
           {error && (
-            <div className="px-3 py-2 bg-red-900/50 border border-red-800 rounded text-red-300 text-sm">
+            <div className="px-3 py-2 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-800 rounded text-red-700 dark:text-red-300 text-sm">
               {error}
             </div>
           )}
@@ -232,14 +232,14 @@ export function ConnectionForm({
             <button
               onClick={handleTest}
               disabled={testing}
-              className="px-4 py-2 bg-gray-700 hover:bg-gray-600 rounded text-sm font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 rounded text-sm font-medium transition-colors disabled:opacity-50"
             >
               {testing ? "Testing..." : "Test Connection"}
             </button>
             <div className="flex-1" />
             <button
               onClick={onCancel}
-              className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded text-sm font-medium transition-colors"
+              className="px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 rounded text-sm font-medium transition-colors"
             >
               Cancel
             </button>

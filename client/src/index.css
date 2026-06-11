@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+/* Enable class-based dark mode: the `dark` variant applies when an ancestor
+   (the <html> element) carries the `dark` class. Light is the absence of it. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}

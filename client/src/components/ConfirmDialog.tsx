@@ -27,15 +27,15 @@ export function ConfirmDialog({
       onClick={onCancel}
     >
       <div
-        className="w-full max-w-md bg-gray-900 rounded-lg border border-gray-800 p-6 shadow-xl"
+        className="w-full max-w-md bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-lg font-semibold mb-3">{title}</h3>
-        <div className="text-sm text-gray-300 mb-6">{message}</div>
+        <div className="text-sm text-gray-600 dark:text-gray-300 mb-6">{message}</div>
         <div className="flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 rounded text-sm font-medium transition-colors"
           >
             {cancelLabel}
           </button>

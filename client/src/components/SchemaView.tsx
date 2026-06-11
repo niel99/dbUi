@@ -94,12 +94,12 @@ export function SchemaView({ connectionId, table, dbType }: SchemaViewProps) {
   return (
     <div className="flex-1 overflow-auto p-4">
       {renameError && (
-        <div className="mb-3 px-3 py-2 text-xs text-red-400 bg-red-900/20 rounded border border-red-800/40">
+        <div className="mb-3 px-3 py-2 text-xs text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded border border-red-300 dark:border-red-800/40">
           {renameError}
         </div>
       )}
       <table className="w-full text-sm">
-        <thead className="bg-gray-900 sticky top-0">
+        <thead className="bg-gray-100 dark:bg-gray-900 sticky top-0">
           <tr>
             <th className="px-3 py-2 text-left text-xs text-gray-500 font-medium">#</th>
             <th className="px-3 py-2 text-left text-xs text-gray-500 font-medium">Name</th>
@@ -110,9 +110,9 @@ export function SchemaView({ connectionId, table, dbType }: SchemaViewProps) {
         </thead>
         <tbody>
           {columns.map((c, i) => (
-            <tr key={c.name} className="border-t border-gray-800/50 hover:bg-gray-800/30 group">
-              <td className="px-3 py-1.5 text-xs text-gray-600">{i + 1}</td>
-              <td className="px-3 py-1.5 text-gray-200">
+            <tr key={c.name} className="border-t border-gray-200 dark:border-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800/30 group">
+              <td className="px-3 py-1.5 text-xs text-gray-400 dark:text-gray-600">{i + 1}</td>
+              <td className="px-3 py-1.5 text-gray-800 dark:text-gray-200">
                 {editingCol === c.name ? (
                   <input
                     ref={inputRef}
@@ -121,7 +121,7 @@ export function SchemaView({ connectionId, table, dbType }: SchemaViewProps) {
                     onKeyDown={(e) => handleKeyDown(e, c.name)}
                     onBlur={() => commitRename(c.name, editValue)}
                     disabled={renaming}
-                    className="bg-gray-800 border border-blue-500 rounded px-1.5 py-0.5 text-sm text-gray-100 outline-none w-40"
+                    className="bg-gray-100 dark:bg-gray-800 border border-blue-500 rounded px-1.5 py-0.5 text-sm text-gray-900 dark:text-gray-100 outline-none w-40"
                   />
                 ) : (
                   <span className="flex items-center gap-1.5">
@@ -129,7 +129,7 @@ export function SchemaView({ connectionId, table, dbType }: SchemaViewProps) {
                     {canRename && (
                       <button
                         onClick={() => startEdit(c.name)}
-                        className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-300 transition-opacity"
+                        className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-opacity"
                         title="Rename column"
                       >
                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -141,7 +141,7 @@ export function SchemaView({ connectionId, table, dbType }: SchemaViewProps) {
                   </span>
                 )}
               </td>
-              <td className="px-3 py-1.5 text-gray-400 font-mono text-xs">{c.dataType}</td>
+              <td className="px-3 py-1.5 text-gray-500 dark:text-gray-400 font-mono text-xs">{c.dataType}</td>
               <td className="px-3 py-1.5 text-xs">
                 {c.nullable ? (
                   <span className="text-gray-500">YES</span>

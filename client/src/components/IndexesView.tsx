@@ -35,7 +35,7 @@ export function IndexesView({ connectionId, table }: IndexesViewProps) {
   return (
     <div className="flex-1 overflow-auto p-4">
       <table className="w-full text-sm">
-        <thead className="bg-gray-900 sticky top-0">
+        <thead className="bg-gray-100 dark:bg-gray-900 sticky top-0">
           <tr>
             <th className="px-3 py-2 text-left text-xs text-gray-500 font-medium">Name</th>
             <th className="px-3 py-2 text-left text-xs text-gray-500 font-medium">Columns</th>
@@ -45,18 +45,18 @@ export function IndexesView({ connectionId, table }: IndexesViewProps) {
         </thead>
         <tbody>
           {indexes.map((ix) => (
-            <tr key={ix.name} className="border-t border-gray-800/50 hover:bg-gray-800/30 align-top">
-              <td className="px-3 py-1.5 text-gray-200">{ix.name}</td>
-              <td className="px-3 py-1.5 text-gray-400 font-mono text-xs">
-                {ix.columns?.join(", ") || <span className="text-gray-600 italic">—</span>}
+            <tr key={ix.name} className="border-t border-gray-200 dark:border-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800/30 align-top">
+              <td className="px-3 py-1.5 text-gray-800 dark:text-gray-200">{ix.name}</td>
+              <td className="px-3 py-1.5 text-gray-500 dark:text-gray-400 font-mono text-xs">
+                {ix.columns?.join(", ") || <span className="text-gray-400 dark:text-gray-600 italic">—</span>}
               </td>
               <td className="px-3 py-1.5 text-xs space-x-2">
                 {ix.primary && <span className="text-yellow-500">PRIMARY</span>}
                 {ix.unique && <span className="text-blue-400">UNIQUE</span>}
-                {!ix.primary && !ix.unique && <span className="text-gray-600">—</span>}
+                {!ix.primary && !ix.unique && <span className="text-gray-400 dark:text-gray-600">—</span>}
               </td>
               <td className="px-3 py-1.5 text-gray-500 font-mono text-xs break-all">
-                {ix.definition || <span className="text-gray-700 italic">—</span>}
+                {ix.definition || <span className="text-gray-400 dark:text-gray-700 italic">—</span>}
               </td>
             </tr>
           ))}

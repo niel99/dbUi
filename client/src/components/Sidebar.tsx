@@ -3,6 +3,7 @@ import type { Connection, TableInfo } from "@/types";
 import { api } from "@/api/client";
 import { ConfirmDialog } from "@/components/ConfirmDialog";
 import { CreateTableDialog } from "@/components/CreateTableDialog";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 interface SidebarProps {
   refreshKey?: number;
@@ -180,9 +181,10 @@ export function Sidebar({
   };
 
   return (
-    <aside className="w-72 bg-gray-900 border-r border-gray-800 flex flex-col">
-      <div className="p-4 border-b border-gray-800">
-        <h1 className="text-lg font-bold text-white">dbUI</h1>
+    <aside className="w-72 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 flex flex-col">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-800 flex items-center justify-between">
+        <h1 className="text-lg font-bold text-gray-900 dark:text-white">dbUI</h1>
+        <ThemeToggle />
       </div>
 
       <div className="p-3">
@@ -195,7 +197,7 @@ export function Sidebar({
       </div>
 
       {error && (
-        <div className="mx-3 mb-2 px-3 py-2 bg-red-900/50 border border-red-800 rounded text-red-300 text-xs">
+        <div className="mx-3 mb-2 px-3 py-2 bg-red-100 dark:bg-red-900/50 border border-red-300 dark:border-red-800 rounded text-red-700 dark:text-red-300 text-xs">
           {error}
         </div>
       )}
@@ -208,8 +210,8 @@ export function Sidebar({
               <div
                 className={`group flex items-center px-2 py-1.5 mx-1 rounded cursor-pointer ${
                   activeSelection?.connectionId === conn.id
-                    ? "bg-gray-800"
-                    : "hover:bg-gray-800/60"
+                    ? "bg-gray-200 dark:bg-gray-800"
+                    : "hover:bg-gray-200/60 dark:hover:bg-gray-800/60"
                 }`}
                 onClick={() => toggleConnection(conn)}
               >
@@ -219,15 +221,15 @@ export function Sidebar({
                 <span
                   className={`w-6 h-6 rounded flex items-center justify-center text-[10px] font-bold mr-2 ${
                     s.connected
-                      ? "bg-green-900 text-green-300"
-                      : "bg-gray-700 text-gray-400"
+                      ? "bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300"
+                      : "bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
                   }`}
                 >
                   {DB_ICONS[conn.type] || "DB"}
                 </span>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm truncate">{conn.name}</p>
-                  <p className="text-[10px] text-gray-600 truncate">
+                  <p className="text-[10px] text-gray-400 dark:text-gray-600 truncate">
                     {conn.host}:{conn.port}
                   </p>
                 </div>
@@ -238,7 +240,7 @@ export function Sidebar({
                   {s.connected && (
                     <button
                       onClick={() => onOpenQuery(conn)}
-                      className="p-1 text-gray-500 hover:text-white"
+                      className="p-1 text-gray-500 hover:text-gray-900 dark:hover:text-white"
                       title="Query editor"
                     >
                       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,7 +284,7 @@ export function Sidebar({
               {s.expanded && (
                 <div className="ml-4">
                   {s.loading && !s.databases && (
-                    <div className="px-3 py-1 text-xs text-gray-600">Loading…</div>
+                    <div className="px-3 py-1 text-xs text-gray-400 dark:text-gray-600">Loading…</div>
                   )}
                   {s.error && (
                     <div className="px-3 py-1 text-xs text-red-400">{s.error}</div>
@@ -293,15 +295,15 @@ export function Sidebar({
                       <div key={db}>
                         <div
                           className={`group flex items-center px-2 py-1 mx-1 rounded cursor-pointer text-sm ${
-                            isOpen ? "bg-gray-800/60" : "hover:bg-gray-800/40"
+                            isOpen ? "bg-gray-200/60 dark:bg-gray-800/60" : "hover:bg-gray-200/50 dark:hover:bg-gray-800/40"
                           }`}
                           onClick={() => toggleDatabase(conn, db)}
                         >
-                          <span className="w-4 text-gray-600 text-xs">
+                          <span className="w-4 text-gray-400 dark:text-gray-600 text-xs">
                             {isOpen ? "▾" : "▸"}
                           </span>
                           <span className="text-gray-500 text-xs mr-2">DB</span>
-                          <span className="flex-1 truncate text-gray-300">{db}</span>
+                          <span className="flex-1 truncate text-gray-700 dark:text-gray-300">{db}</span>
                           {isOpen && (
                             <button
                               onClick={(e) => {
@@ -321,10 +323,10 @@ export function Sidebar({
                         {isOpen && (
                           <div className="ml-4">
                             {s.loading && !s.tables && (
-                              <div className="px-3 py-1 text-xs text-gray-600">Loading…</div>
+                              <div className="px-3 py-1 text-xs text-gray-400 dark:text-gray-600">Loading…</div>
                             )}
                             {s.tables?.length === 0 && (
-                              <div className="px-3 py-1 text-xs text-gray-600 italic">
+                              <div className="px-3 py-1 text-xs text-gray-400 dark:text-gray-600 italic">
                                 No tables
                               </div>
                             )}
@@ -337,13 +339,13 @@ export function Sidebar({
                                   key={t.name}
                                   className={`group flex items-center px-2 py-1 mx-1 rounded cursor-pointer text-xs ${
                                     isActive
-                                      ? "bg-gray-700 text-white"
-                                      : "text-gray-400 hover:bg-gray-800/40 hover:text-gray-200"
+                                      ? "bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-white"
+                                      : "text-gray-500 dark:text-gray-400 hover:bg-gray-200/50 dark:hover:bg-gray-800/40 hover:text-gray-800 dark:hover:text-gray-200"
                                   }`}
                                   onClick={() => onSelectTable(conn, t.name)}
                                 >
                                   <span className="w-4" />
-                                  <span className="text-gray-600 mr-2">
+                                  <span className="text-gray-400 dark:text-gray-600 mr-2">
                                     {t.tableType === "collection"
                                       ? "C"
                                       : t.tableType === "view"
@@ -356,7 +358,7 @@ export function Sidebar({
                                       e.stopPropagation();
                                       setConfirmDropTable({ conn, table: t.name });
                                     }}
-                                    className="hidden group-hover:block p-0.5 text-gray-600 hover:text-red-400"
+                                    className="hidden group-hover:block p-0.5 text-gray-400 dark:text-gray-600 hover:text-red-400"
                                     title="Drop table"
                                   >
                                     <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -384,7 +386,7 @@ export function Sidebar({
         message={
           <>
             This will permanently remove the saved connection{" "}
-            <strong className="text-white">{confirmDeleteConn?.name}</strong>. The
+            <strong className="text-gray-900 dark:text-white">{confirmDeleteConn?.name}</strong>. The
             database itself is not affected.
           </>
         }
@@ -400,7 +402,7 @@ export function Sidebar({
         message={
           <>
             This will permanently drop{" "}
-            <strong className="text-white">{confirmDropTable?.table}</strong> and all
+            <strong className="text-gray-900 dark:text-white">{confirmDropTable?.table}</strong> and all
             its data. This cannot be undone.
           </>
         }
@@ -430,7 +432,7 @@ export function Sidebar({
         message={
           <>
             Create{" "}
-            <strong className="text-white">
+            <strong className="text-gray-900 dark:text-white">
               {confirmCreate?.spec.schema
                 ? `${confirmCreate.spec.schema}.${confirmCreate.spec.name}`
                 : confirmCreate?.spec.name}

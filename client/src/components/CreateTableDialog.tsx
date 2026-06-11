@@ -152,37 +152,37 @@ export function CreateTableDialog({
       onClick={onCancel}
     >
       <div
-        className="w-full max-w-3xl max-h-[90vh] bg-gray-900 rounded-lg border border-gray-800 p-6 shadow-xl flex flex-col"
+        className="w-full max-w-3xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-lg border border-gray-200 dark:border-gray-800 p-6 shadow-xl flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         <h3 className="text-lg font-semibold mb-1">
           Create {isMongo ? "collection" : "table"}
         </h3>
         <p className="text-xs text-gray-500 mb-4">
-          in <span className="text-gray-300">{database}</span>
+          in <span className="text-gray-700 dark:text-gray-300">{database}</span>
         </p>
 
         <div className="space-y-4 overflow-y-auto">
           <div className="grid grid-cols-3 gap-3">
             <div className={dbType === "postgres" ? "col-span-2" : "col-span-3"}>
-              <label className="block text-sm text-gray-400 mb-1">Name</label>
+              <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
                 placeholder={isMongo ? "my_collection" : "my_table"}
                 autoFocus
               />
             </div>
             {dbType === "postgres" && (
               <div>
-                <label className="block text-sm text-gray-400 mb-1">Schema</label>
+                <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">Schema</label>
                 <input
                   type="text"
                   value={schema}
                   onChange={(e) => setSchema(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
+                  className="w-full px-3 py-2 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-sm focus:outline-none focus:border-blue-500"
                 />
               </div>
             )}
@@ -195,7 +195,7 @@ export function CreateTableDialog({
           ) : (
             <>
               {isCql && (
-                <div className="text-xs text-amber-400/80 bg-amber-900/20 border border-amber-900/50 rounded px-3 py-2">
+                <div className="text-xs text-amber-700 dark:text-amber-400/80 bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-900/50 rounded px-3 py-2">
                   CQL ({dbType}) does not support <code>DEFAULT</code>,{" "}
                   <code>UNIQUE</code>, or <code>CHECK</code> constraints. Those
                   fields are disabled; only name, type, and primary key apply.
@@ -204,7 +204,7 @@ export function CreateTableDialog({
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm text-gray-400">Columns</label>
+                  <label className="block text-sm text-gray-500 dark:text-gray-400">Columns</label>
                   <button
                     onClick={addColumn}
                     className="text-xs text-blue-400 hover:text-blue-300"
@@ -213,9 +213,9 @@ export function CreateTableDialog({
                   </button>
                 </div>
 
-                <div className="border border-gray-800 rounded overflow-hidden">
+                <div className="border border-gray-200 dark:border-gray-800 rounded overflow-hidden">
                   <table className="w-full text-sm">
-                    <thead className="bg-gray-800/60">
+                    <thead className="bg-gray-100 dark:bg-gray-800/60">
                       <tr>
                         <th className="w-6" />
                         <th className="px-2 py-1.5 text-left text-xs text-gray-500 font-medium">Name</th>
@@ -231,11 +231,11 @@ export function CreateTableDialog({
                         const pgTextType = dbType === "postgres" && isTextType(col.dataType);
                         return (
                           <Fragment key={idx}>
-                            <tr className="border-t border-gray-800">
+                            <tr className="border-t border-gray-200 dark:border-gray-800">
                               <td className="text-center">
                                 <button
                                   onClick={() => toggleExpand(idx)}
-                                  className="text-gray-500 hover:text-gray-300 text-xs w-5"
+                                  className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-xs w-5"
                                   title="Advanced"
                                 >
                                   {isOpen ? "▾" : "▸"}
@@ -246,7 +246,7 @@ export function CreateTableDialog({
                                   type="text"
                                   value={col.name}
                                   onChange={(e) => updateColumn(idx, { name: e.target.value })}
-                                  className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
+                                  className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
                                   placeholder="column_name"
                                 />
                               </td>
@@ -256,7 +256,7 @@ export function CreateTableDialog({
                                   value={col.dataType}
                                   onChange={(e) => updateColumn(idx, { dataType: e.target.value })}
                                   list={`types-${dbType}`}
-                                  className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
+                                  className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
                                 />
                                 <datalist id={`types-${dbType}`}>
                                   {typeOptions.map((t) => (
@@ -282,7 +282,7 @@ export function CreateTableDialog({
                                 {columns.length > 1 && (
                                   <button
                                     onClick={() => removeColumn(idx)}
-                                    className="text-gray-600 hover:text-red-400 text-xs"
+                                    className="text-gray-400 dark:text-gray-600 hover:text-red-400 text-xs"
                                     title="Remove"
                                   >
                                     ×
@@ -291,14 +291,14 @@ export function CreateTableDialog({
                               </td>
                             </tr>
                             {isOpen && (
-                              <tr className="border-t border-gray-800 bg-gray-900/40">
+                              <tr className="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/40">
                                 <td />
                                 <td colSpan={5} className="px-3 py-3">
                                   <div className="grid grid-cols-2 gap-3">
                                     <div>
                                       <label className="block text-[11px] text-gray-500 mb-1">
                                         Default value
-                                        {isCql && <span className="text-gray-700"> (unsupported)</span>}
+                                        {isCql && <span className="text-gray-400 dark:text-gray-700"> (unsupported)</span>}
                                       </label>
                                       <input
                                         type="text"
@@ -306,14 +306,14 @@ export function CreateTableDialog({
                                         disabled={isCql}
                                         onChange={(e) => updateColumn(idx, { default: e.target.value })}
                                         placeholder="e.g. 0, now(), 'pending'"
-                                        className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500 disabled:opacity-40"
+                                        className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500 disabled:opacity-40"
                                       />
-                                      <p className="text-[10px] text-gray-600 mt-0.5">
+                                      <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-0.5">
                                         Raw SQL expression — quote strings.
                                       </p>
                                     </div>
                                     <div className="flex items-end">
-                                      <label className="inline-flex items-center gap-2 text-xs text-gray-400">
+                                      <label className="inline-flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                                         <input
                                           type="checkbox"
                                           checked={!!col.unique}
@@ -321,7 +321,7 @@ export function CreateTableDialog({
                                           onChange={(e) => updateColumn(idx, { unique: e.target.checked })}
                                         />
                                         Unique
-                                        {isCql && <span className="text-gray-700">(unsupported)</span>}
+                                        {isCql && <span className="text-gray-400 dark:text-gray-700">(unsupported)</span>}
                                       </label>
                                     </div>
 
@@ -341,7 +341,7 @@ export function CreateTableDialog({
                                                     : Math.max(0, parseInt(e.target.value) || 0),
                                               })
                                             }
-                                            className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
+                                            className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
                                           />
                                         </div>
                                         <div>
@@ -358,7 +358,7 @@ export function CreateTableDialog({
                                                     : Math.max(0, parseInt(e.target.value) || 0),
                                               })
                                             }
-                                            className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
+                                            className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs focus:outline-none focus:border-blue-500"
                                           />
                                         </div>
                                         <div className="col-span-2">
@@ -370,21 +370,21 @@ export function CreateTableDialog({
                                             value={col.pattern ?? ""}
                                             onChange={(e) => updateColumn(idx, { pattern: e.target.value })}
                                             placeholder="e.g. ^[A-Za-z0-9_]+$"
-                                            className="w-full px-2 py-1 bg-gray-800 border border-gray-700 rounded text-xs font-mono focus:outline-none focus:border-blue-500"
+                                            className="w-full px-2 py-1 bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded text-xs font-mono focus:outline-none focus:border-blue-500"
                                           />
-                                          <p className="text-[10px] text-gray-600 mt-0.5">
+                                          <p className="text-[10px] text-gray-400 dark:text-gray-600 mt-0.5">
                                             Enforced as <code>CHECK (col ~ 'pattern')</code>.
                                           </p>
                                         </div>
                                       </>
                                     )}
                                     {!pgTextType && dbType === "postgres" && (
-                                      <div className="col-span-2 text-[11px] text-gray-600 italic">
+                                      <div className="col-span-2 text-[11px] text-gray-400 dark:text-gray-600 italic">
                                         Length / pattern rules apply only to text-type columns.
                                       </div>
                                     )}
                                     {isCql && (
-                                      <div className="col-span-2 text-[11px] text-gray-600 italic">
+                                      <div className="col-span-2 text-[11px] text-gray-400 dark:text-gray-600 italic">
                                         Length / pattern rules require CHECK constraints, which CQL does not support.
                                       </div>
                                     )}
@@ -403,7 +403,7 @@ export function CreateTableDialog({
           )}
 
           {errors.length > 0 && (
-            <ul className="text-xs text-red-400 bg-red-900/20 border border-red-900/50 rounded px-3 py-2 space-y-0.5">
+            <ul className="text-xs text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-300 dark:border-red-900/50 rounded px-3 py-2 space-y-0.5">
               {errors.map((e, i) => (
                 <li key={i}>• {e}</li>
               ))}
@@ -414,7 +414,7 @@ export function CreateTableDialog({
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-gray-100 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded text-sm font-medium transition-colors"
           >
             Cancel
           </button>

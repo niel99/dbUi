@@ -17,7 +17,7 @@ export default function App() {
     : null;
 
   return (
-    <div className="flex h-screen bg-gray-950 text-gray-100">
+    <div className="flex h-screen bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-gray-100">
       <Sidebar
         refreshKey={refreshKey}
         activeSelection={activeSelection}
@@ -50,7 +50,7 @@ export default function App() {
             selectedTable={selection.table}
           />
         ) : (
-          <div className="flex-1 flex items-center justify-center text-gray-500">
+          <div className="flex-1 flex items-center justify-center text-gray-400 dark:text-gray-500">
             <div className="text-center">
               <h2 className="text-2xl font-semibold mb-2">dbUI</h2>
               <p>Select a connection or create a new one to get started.</p>

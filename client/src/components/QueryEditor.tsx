@@ -41,16 +41,16 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {/* Query input */}
-      <div className="flex flex-col border-b border-gray-800">
+      <div className="flex flex-col border-b border-gray-200 dark:border-gray-800">
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Enter your query... (Cmd+Enter to execute)"
-          className="w-full h-40 p-4 bg-gray-950 text-sm font-mono text-gray-200 resize-none focus:outline-none placeholder:text-gray-700"
+          className="w-full h-40 p-4 bg-white dark:bg-gray-950 text-sm font-mono text-gray-800 dark:text-gray-200 resize-none focus:outline-none placeholder:text-gray-400 dark:placeholder:text-gray-700"
           spellCheck={false}
         />
-        <div className="flex items-center gap-2 px-4 py-2 bg-gray-900">
+        <div className="flex items-center gap-2 px-4 py-2 bg-gray-50 dark:bg-gray-900">
           <button
             onClick={handleExecute}
             disabled={loading || !query.trim()}
@@ -58,7 +58,7 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
           >
             {loading ? "Executing..." : "Execute"}
           </button>
-          <span className="text-xs text-gray-600">Cmd+Enter</span>
+          <span className="text-xs text-gray-400 dark:text-gray-600">Cmd+Enter</span>
           {result && (
             <span className="text-xs text-gray-500">
               {result.rowsAffected} row(s) returned
@@ -69,7 +69,7 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
 
       {/* Error */}
       {error && (
-        <div className="px-4 py-3 bg-red-900/30 border-b border-red-800 text-red-300 text-sm font-mono">
+        <div className="px-4 py-3 bg-red-50 dark:bg-red-900/30 border-b border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 text-sm font-mono">
           {error}
         </div>
       )}
@@ -78,7 +78,7 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
       {result && result.rows.length > 0 && (
         <div className="flex-1 overflow-auto">
           <table className="w-full text-sm">
-            <thead className="bg-gray-900 sticky top-0">
+            <thead className="bg-gray-100 dark:bg-gray-900 sticky top-0">
               <tr>
                 {result.columns?.map((col) => (
                   <th
@@ -94,12 +94,12 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
               {result.rows.map((row, idx) => (
                 <tr
                   key={idx}
-                  className="border-t border-gray-800/50 hover:bg-gray-800/30"
+                  className="border-t border-gray-200 dark:border-gray-800/50 hover:bg-gray-100 dark:hover:bg-gray-800/30"
                 >
                   {result.columns?.map((col) => (
-                    <td key={col} className="px-3 py-1.5 text-xs text-gray-300">
+                    <td key={col} className="px-3 py-1.5 text-xs text-gray-700 dark:text-gray-300">
                       {row[col] === null ? (
-                        <span className="text-gray-600 italic">NULL</span>
+                        <span className="text-gray-400 dark:text-gray-600 italic">NULL</span>
                       ) : typeof row[col] === "object" ? (
                         JSON.stringify(row[col])
                       ) : (
@@ -115,7 +115,7 @@ export function QueryEditor({ connectionId }: QueryEditorProps) {
       )}
 
       {result && result.rows.length === 0 && !error && (
-        <div className="flex-1 flex items-center justify-center text-gray-500 text-sm">
+        <div className="flex-1 flex items-center justify-center text-gray-400 dark:text-gray-500 text-sm">
           Query executed successfully. No rows returned.
         </div>
       )}
