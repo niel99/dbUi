@@ -4,11 +4,20 @@ export type Theme = "light" | "dark";
 
 const STORAGE_KEY = "dbui-theme";
 
+function readStoredTheme(): Theme | null {
+  try {
+    const stored = window.localStorage?.getItem(STORAGE_KEY);
+    return stored === "light" || stored === "dark" ? stored : null;
+  } catch {
+    return null;
+  }
+}
+
 function getInitialTheme(): Theme {
   if (typeof window === "undefined") return "dark";
-  const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches
+  const stored = readStoredTheme();
+  if (stored) return stored;
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches
     ? "dark"
     : "light";
 }
@@ -31,7 +40,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     applyTheme(theme);
-    window.localStorage.setItem(STORAGE_KEY, theme);
+    try {
+      window.localStorage?.setItem(STORAGE_KEY, theme);
+    } catch {
+      // Storage unavailable (private mode, disabled, sandboxed) — theme still applies for the session.
+    }
   }, [theme]);
 
   const setTheme = (next: Theme) => setThemeState(next);

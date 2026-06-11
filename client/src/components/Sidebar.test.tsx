@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect, vi } from "vitest";
 import { Sidebar } from "./Sidebar";
+import { ThemeProvider } from "@/hooks/useTheme";
 
 // Mock the API
 vi.mock("@/api/client", () => ({
@@ -24,13 +25,15 @@ vi.mock("@/api/client", () => ({
 describe("Sidebar", () => {
   it("renders title and new connection button", () => {
     render(
-      <Sidebar
-        activeSelection={null}
-        onSelectTable={vi.fn()}
-        onOpenQuery={vi.fn()}
-        onNewConnection={vi.fn()}
-        onEditConnection={vi.fn()}
-      />
+      <ThemeProvider>
+        <Sidebar
+          activeSelection={null}
+          onSelectTable={vi.fn()}
+          onOpenQuery={vi.fn()}
+          onNewConnection={vi.fn()}
+          onEditConnection={vi.fn()}
+        />
+      </ThemeProvider>
     );
 
     expect(screen.getByText("dbUI")).toBeInTheDocument();
@@ -40,13 +43,15 @@ describe("Sidebar", () => {
   it("calls onNewConnection when button clicked", () => {
     const onNew = vi.fn();
     render(
-      <Sidebar
-        activeSelection={null}
-        onSelectTable={vi.fn()}
-        onOpenQuery={vi.fn()}
-        onNewConnection={onNew}
-        onEditConnection={vi.fn()}
-      />
+      <ThemeProvider>
+        <Sidebar
+          activeSelection={null}
+          onSelectTable={vi.fn()}
+          onOpenQuery={vi.fn()}
+          onNewConnection={onNew}
+          onEditConnection={vi.fn()}
+        />
+      </ThemeProvider>
     );
 
     screen.getByText("+ New Connection").click();
